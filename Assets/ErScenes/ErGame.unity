@@ -318,7 +318,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2529558523732743483, guid: 07841d43362065344ab7f811d203c29c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.44
+      value: 3.97
       objectReference: {fileID: 0}
     - target: {fileID: 2529558523732743483, guid: 07841d43362065344ab7f811d203c29c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -352,6 +352,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3939209148266611705, guid: 07841d43362065344ab7f811d203c29c, type: 3}
+      propertyPath: Camera
+      value: 
+      objectReference: {fileID: 963194225}
     - target: {fileID: 5903324674738447156, guid: 07841d43362065344ab7f811d203c29c, type: 3}
       propertyPath: m_Name
       value: ErPlayer
