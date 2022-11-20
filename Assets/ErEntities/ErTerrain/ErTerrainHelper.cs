@@ -11,9 +11,9 @@ namespace Assets.ErEntities.ErTerrain
       context.Current.transform.SetParent(context.Parent.transform);
       context.Current.transform.position = context.Previous == null
         // Default: align first (behind) terrain behind the active one
-        ? new Vector3(-ErTerrainGenerator.Config.Width / 2, 0, -(3 * ErTerrainGenerator.Config.Height) / 2)
+        ? new Vector3(-ErTerrainGenerator.Config.Size / 2, 0, -(3 * ErTerrainGenerator.Config.Size) / 2)
         // Rest of the terrains will be just padded by height to their respective places
-        : context.Previous.transform.position + new Vector3(0, 0, ErTerrainGenerator.Config.Height);
+        : context.Previous.transform.position + new Vector3(0, 0, ErTerrainGenerator.Config.Size);
 
       // Set up terrain component
       var terrain = context.Current.AddComponent<Terrain>();
@@ -32,10 +32,8 @@ namespace Assets.ErEntities.ErTerrain
     {
       // shorthands
       var current = context.Current;
-      var width = ErTerrainGenerator.Config.Width;
-      var height = ErTerrainGenerator.Config.Height;
-      var textureWidth = ErTerrainGenerator.Config.Texture.Width;
-      var textureHeight = ErTerrainGenerator.Config.Texture.Height;
+      var size = ErTerrainGenerator.Config.Size;
+      var textureSize = ErTerrainGenerator.Config.Texture.Width;
       var frequency = ErTerrainGenerator.Config.Frequency;
       var amplitude = ErTerrainGenerator.Config.Amplitude;
       var previousHeightMap = context.PreviousHeightMap;
@@ -45,35 +43,33 @@ namespace Assets.ErEntities.ErTerrain
       //
 
       var terrainComp = current.GetComponent<Terrain>();
-      terrainComp.terrainData = new TerrainData
-      {
-        size = new Vector3(width, ErTerrainGenerator.Config.TerrainBoxHeight, height),
-        heightmapResolution = ErTerrainGenerator.Config.Resolution,
-      };
+      terrainComp.terrainData = new TerrainData();
+      terrainComp.terrainData.heightmapResolution = ErTerrainGenerator.Config.Resolution;
+      terrainComp.terrainData.size = new Vector3(size, ErTerrainGenerator.Config.Height, size);
 
-      float[,] heightMap = new float[height, width];
-      var texture = new Texture2D(textureWidth, textureHeight, TextureFormat.RGB24, mipChain: false)
+      float[,] heightMap = new float[size, size];
+      var texture = new Texture2D(textureSize, textureSize, TextureFormat.RGB24, mipChain: false)
       {
         alphaIsTransparency = true,
       };
       var roadSize = 10;
       var hasPrevious = context.PreviousHeightMap != null;
-      for (int h = 0; h < height; h++)
+      for (int h = 0; h < size; h++)
       {
-        for (int w = 0; w < width; w++)
+        for (int w = 0; w < size; w++)
         {
           float noise;
           if (h == 0 && hasPrevious) // stitching
           {
-            noise = previousHeightMap[height - 1, w];
+            noise = previousHeightMap[size - 1, w];
           }
-          else if (w > width / 2 - (roadSize / 2) && w < width / 2 + (roadSize / 2)) // road
+          else if (w > size / 2 - (roadSize / 2) && w < size / 2 + (roadSize / 2)) // road
           {
             noise = 0.2f;
           }
           else // terrain
           {
-            noise = Mathf.PerlinNoise((h / (float)height) * frequency, (w / (float)width) * frequency) / amplitude;
+            noise = Mathf.PerlinNoise((h / (float)size) * frequency, (w / (float)size) * frequency) / amplitude;
           }
           heightMap[h, w] = noise;
           var gray = Mathf.Min(1.0f, noise * amplitude);
@@ -92,8 +88,9 @@ namespace Assets.ErEntities.ErTerrain
       {
         mainTexture = texture,
         name = "Heightmap texture",
-        mainTextureScale = new Vector2(33.0f / 128.0f, 33.0f / 128.0f),
+        mainTextureScale = new Vector2((float)size / textureSize, (float)size / textureSize),
       };
+      terrainMaterial.SetTextureOffset("_MainTex", new Vector2(-10, -10));
       terrainComp.materialTemplate = terrainMaterial;
     }
   }

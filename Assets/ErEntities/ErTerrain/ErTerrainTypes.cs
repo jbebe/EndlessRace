@@ -4,11 +4,9 @@ namespace Assets.ErEntities.ErTerrain
 {
   public class ErTerrainConfig
   {
-    public int Width;
+    public int Size;
 
     public int Height;
-
-    public int TerrainBoxHeight;
 
     public int Resolution;
 
@@ -19,6 +17,8 @@ namespace Assets.ErEntities.ErTerrain
     public float Amplitude;
 
     public ErTerrainTextureConfig Texture;
+
+    public int TriggerCheckSec;
   }
 
   public class ErTerrainTextureConfig
@@ -28,7 +28,7 @@ namespace Assets.ErEntities.ErTerrain
     public int Height;
   }
 
-  class ErTerrainContext
+  public class ErTerrainContext
   {
     public int Index { get; set; }
 
@@ -41,5 +41,7 @@ namespace Assets.ErEntities.ErTerrain
     public float[,] CurrentHeightMap { get; set; }
 
     public float[,] PreviousHeightMap { get; set; }
+
+    public Bounds Bounds { get; set; }
   }
 }
