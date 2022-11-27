@@ -301,7 +301,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 35.9, y: -90, z: 0}
---- !u!1001 &1124160942
+--- !u!1001 &1040674164
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -318,7 +318,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2529558523732743483, guid: 07841d43362065344ab7f811d203c29c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.44
+      value: 3.97
       objectReference: {fileID: 0}
     - target: {fileID: 2529558523732743483, guid: 07841d43362065344ab7f811d203c29c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -352,16 +352,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3939209148266611705, guid: 07841d43362065344ab7f811d203c29c, type: 3}
+      propertyPath: Camera
+      value: 
+      objectReference: {fileID: 963194225}
     - target: {fileID: 5903324674738447156, guid: 07841d43362065344ab7f811d203c29c, type: 3}
       propertyPath: m_Name
       value: ErPlayer
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 07841d43362065344ab7f811d203c29c, type: 3}
---- !u!1 &1698122637 stripped
+--- !u!1 &1687257434 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5903324674738447156, guid: 07841d43362065344ab7f811d203c29c, type: 3}
-  m_PrefabInstance: {fileID: 1124160942}
+  m_PrefabInstance: {fileID: 1040674164}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1742187804
 PrefabInstance:
@@ -421,6 +425,6 @@ PrefabInstance:
     - target: {fileID: 7605755762658484502, guid: a75adc43af00c724e9348f5f53bb181e, type: 3}
       propertyPath: Player
       value: 
-      objectReference: {fileID: 1698122637}
+      objectReference: {fileID: 1687257434}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a75adc43af00c724e9348f5f53bb181e, type: 3}

@@ -1,3 +1,4 @@
+using Assets.ErCommon;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,16 +7,16 @@ namespace Assets.ErEntities.ErTerrain
 
   public class ErTerrainGenerator : MonoBehaviour
   {
+    [SerializeField]
     public GameObject Player;
 
     public static ErTerrainConfig Config = new()
     {
       // Basic dimensions
-      Size = 2 * 32 + 1,
+      Size = 128 + 1,
       Height = 16,
 
       // Terrain shape
-      Resolution = 2 * 32 + 1,
       Frequency = 5,
       Amplitude = 4,
 
@@ -49,8 +50,12 @@ namespace Assets.ErEntities.ErTerrain
     // Update is called once per frame
     void Update()
     {
-      Timer += Time.deltaTime;
+      UpdateTerrainGeneration();
+    }
 
+    void UpdateTerrainGeneration()
+    {
+      Timer += Time.deltaTime;
       if (Timer > Config.TriggerCheckSec)
       {
         var playerReachedNext = NextTerrain.Bounds.Contains(Player.transform.position);

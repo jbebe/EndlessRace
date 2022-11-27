@@ -8,7 +8,7 @@ namespace Assets.ErEntities.ErTerrain
 
     public int Height;
 
-    public int Resolution;
+    public int Resolution => Size;
 
     //The higher the numbers, the more hills/mountains there are
     public float Frequency;

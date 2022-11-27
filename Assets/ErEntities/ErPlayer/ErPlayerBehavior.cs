@@ -1,18 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class ErPlayerBehavior : MonoBehaviour
+namespace Assets.ErEntities.ErPlayer
 {
-    // Start is called before the first frame update
+
+  public class ErPlayerBehavior : MonoBehaviour
+  {
+    [SerializeField]
+    public GameObject Camera;
+
     void Start()
     {
-        
+      var placeholderCamera = transform.GetChild(0);
+      Camera.transform.SetPositionAndRotation(placeholderCamera.position, placeholderCamera.rotation);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+
     }
+  }
+
 }
