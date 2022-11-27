@@ -1,3 +1,4 @@
+using Assets.ErCommon;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,6 +7,7 @@ namespace Assets.ErEntities.ErTerrain
 
   public class ErTerrainGenerator : MonoBehaviour
   {
+    [SerializeField]
     public GameObject Player;
 
     public static ErTerrainConfig Config = new()
