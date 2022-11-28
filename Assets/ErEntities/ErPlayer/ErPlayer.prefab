@@ -830,6 +830,8 @@ MonoBehaviour:
   CurrentAcceleration: 0
   CurrentBrakingForce: 0
   CurrentTurningAngle: 300
+  IdleSound: {fileID: 8300000, guid: c78f0a225bbd4bb4a8f12747ecab22c1, type: 3}
+  AccelerationSound: {fileID: 8300000, guid: 8ed6c7ac2a49153479d1e430fa9bfa41, type: 3}
 --- !u!1 &8994583174296523316
 GameObject:
   m_ObjectHideFlags: 0
