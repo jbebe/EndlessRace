@@ -48,10 +48,7 @@ namespace Assets.ErEntities.ErTerrain
       terrainComp.terrainData.size = new Vector3(size, ErTerrainGenerator.Config.Height, size);
 
       float[,] heightMap = new float[size, size];
-      var texture = new Texture2D(textureSize, textureSize, TextureFormat.RGB24, mipChain: false)
-      {
-        alphaIsTransparency = true,
-      };
+      var texture = new Texture2D(textureSize, textureSize, TextureFormat.RGB24, mipChain: false);
       var roadSize = 10;
       var hasPrevious = context.PreviousHeightMap != null;
       for (int h = 0; h < size; h++)
