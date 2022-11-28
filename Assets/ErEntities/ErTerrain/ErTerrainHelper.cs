@@ -81,7 +81,7 @@ namespace Assets.ErEntities.ErTerrain
       //
 
       texture.Apply();
-      var terrainMaterial = new Material(Shader.Find("Standard"))
+      var terrainMaterial = new Material(Shader.Find("HDRP/TerrainLit"))
       {
         mainTexture = texture,
         name = "Heightmap texture",
