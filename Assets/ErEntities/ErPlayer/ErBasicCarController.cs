@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ErBasicCarController : MonoBehaviour
@@ -61,17 +62,39 @@ public class ErBasicCarController : MonoBehaviour
   #endregion
 
   public float MaxAcceleration = 500.0f;
-  public float MaxBrakingForce = 300.0f;
+  public float MaxBrakingForce = 5000.0f;
   public float MaxTurningAngle = 15.0f;
 
   public float CurrentAcceleration = 0.0f;
   public float CurrentBrakingForce = 0.0f;
   public float CurrentTurningAngle = 0.0f;
 
+  public AudioClip IdleSound;
+
+  public AudioClip AccelerationSound;
+
+  private AudioSource IdleAS;
+
+  private AudioSource AccelerationAS;
+
+  private const int PreviousRpmsCapacity = 10;
+  private Queue<float> PreviousRpms = new Queue<float>(PreviousRpmsCapacity);
+
   // Start is called before the first frame update
   void Start()
   {
+    IdleAS = gameObject.AddComponent<AudioSource>();
+    AccelerationAS = gameObject.AddComponent<AudioSource>();
 
+    IdleAS.clip = IdleSound;
+    AccelerationAS.clip = AccelerationSound;
+
+    IdleAS.volume = 0.2f;
+    IdleAS.loop = true;
+    AccelerationAS.loop = true;
+
+    IdleAS.Play();
+    AccelerationAS.Play(); AccelerationAS.Pause();
   }
 
   private void FixedUpdate()
@@ -97,12 +120,40 @@ public class ErBasicCarController : MonoBehaviour
   // Update is called once per frame
   void Update()
   {
+    // Calculate current pitch by RPM
+    var rpm = GetWheelRpm();
 
+    if (rpm > 0.1)
+    {
+      // Speeding
+      IdleAS.Pause();
+      AccelerationAS.UnPause();
+    }
+    else
+    {
+      // Idle
+      IdleAS.UnPause();
+      AccelerationAS.Pause();
+    }
+
+    AccelerationAS.pitch = rpm;
   }
 
   private static void UpdateWheelPosition(WheelCollider collider, Transform model)
   {
     collider.GetWorldPose(out var position, out var rotation);
     model.SetPositionAndRotation(position, rotation);
+  }
+
+  private float GetWheelRpm()
+  {
+    var rpm = 0.0f;
+    rpm = Mathf.Clamp(MotorWheels.Average(x => x.rpm) * 0.005f, -2.0f, 2.0f);
+
+    if (PreviousRpms.Count == PreviousRpmsCapacity)
+      PreviousRpms.Dequeue();
+    PreviousRpms.Enqueue(rpm);
+
+    return PreviousRpms.Average();
   }
 }
