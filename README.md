@@ -2,7 +2,7 @@
 
 - [x] Basic randomly generated terrain that expands when you reach the end
 - [x] Basic drivable car that has suspension and back wheel drive
-- [ ] Basic car sound to make it more realistic
+- [x] Basic car sound to make it more realistic
 - [ ] Export wheels and use with WheelCollider
 - [ ] Migrate project to a rendering pipeline
 - etc...
