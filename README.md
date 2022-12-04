@@ -4,7 +4,9 @@
 - [x] Basic drivable car that has suspension and back wheel drive
 - [x] Basic car sound to make it more realistic
 - [ ] Export wheels and use with WheelCollider
-- [ ] Migrate project to a rendering pipeline
+- [x] Migrate project to a rendering pipeline
+- [ ] Create road and ground textures
+- [ ] Create grass and trees
 - etc...
 
-![alt](https://raw.githubusercontent.com/jbebe/EndlessRace/master/Docs/current-screenshot.png)
+![alt](https://raw.githubusercontent.com/jbebe/EndlessRace/master/Docs/current-screenshot-2.png)
