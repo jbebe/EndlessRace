@@ -19,6 +19,10 @@ namespace Assets.ErEntities.ErTerrain
     public ErTerrainTextureConfig Texture;
 
     public int TriggerCheckSec;
+
+    public int StitchSize;
+
+    public int RoadSize;
   }
 
   public class ErTerrainTextureConfig

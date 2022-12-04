@@ -28,7 +28,12 @@ namespace Assets.ErEntities.ErTerrain
       {
         Width = 128,
         Height = 128
-      }
+      },
+
+      // How many vertices should be interpolated with next terrain
+      StitchSize = 20,
+
+      RoadSize = 10,
     };
 
     // [0]: previous

@@ -34,7 +34,6 @@ namespace Assets.ErEntities.ErTerrain
       var current = context.Current;
       var size = ErTerrainGenerator.Config.Size;
       var textureSize = ErTerrainGenerator.Config.Texture.Width;
-      var frequency = ErTerrainGenerator.Config.Frequency;
       var amplitude = ErTerrainGenerator.Config.Amplitude;
       var previousHeightMap = context.PreviousHeightMap;
 
@@ -49,25 +48,12 @@ namespace Assets.ErEntities.ErTerrain
 
       float[,] heightMap = new float[size, size];
       var texture = new Texture2D(textureSize, textureSize, TextureFormat.RGB24, mipChain: false);
-      var roadSize = 10;
       var hasPrevious = context.PreviousHeightMap != null;
       for (int h = 0; h < size; h++)
       {
         for (int w = 0; w < size; w++)
         {
-          float noise;
-          if (h == 0 && hasPrevious) // stitching
-          {
-            noise = previousHeightMap[size - 1, w];
-          }
-          else if (w > size / 2 - (roadSize / 2) && w < size / 2 + (roadSize / 2)) // road
-          {
-            noise = 0.2f;
-          }
-          else // terrain
-          {
-            noise = Mathf.PerlinNoise((h / (float)size) * frequency, (w / (float)size) * frequency) / amplitude;
-          }
+          var noise = GetNoiseValue(w, h, hasPrevious, previousHeightMap);
           heightMap[h, w] = noise;
           var gray = Mathf.Min(1.0f, noise * amplitude);
           texture.SetPixel(w, h, new Color(gray, gray, gray));
@@ -81,7 +67,7 @@ namespace Assets.ErEntities.ErTerrain
       //
 
       texture.Apply();
-      var terrainMaterial = new Material(Shader.Find("HDRP/TerrainLit"))
+      var terrainMaterial = new Material(Shader.Find("HDRP/Lit"))
       {
         mainTexture = texture,
         name = "Heightmap texture",
@@ -89,6 +75,30 @@ namespace Assets.ErEntities.ErTerrain
       };
       terrainMaterial.SetTextureOffset("_MainTex", new Vector2(-10, -10));
       terrainComp.materialTemplate = terrainMaterial;
+    }
+
+    private static float GetNoiseValue(int w, int h, bool hasPrevious, float[,] previousHeightMap)
+    {
+      var size = ErTerrainGenerator.Config.Size;
+      var frequency = ErTerrainGenerator.Config.Frequency;
+      var amplitude = ErTerrainGenerator.Config.Amplitude;
+      var roadSize = ErTerrainGenerator.Config.RoadSize;
+      float noise = Mathf.PerlinNoise((h / (float)size) * frequency, (w / (float)size) * frequency) / amplitude;
+      var isRoad = w > size / 2 - (roadSize / 2) && w < size / 2 + (roadSize / 2);
+
+      if (isRoad)
+      {
+        // road
+        noise = 0.2f;
+      }
+      else if (h <= ErTerrainGenerator.Config.StitchSize && hasPrevious)
+      {
+        // stitching
+        var ip = (float)h / ErTerrainGenerator.Config.StitchSize;
+        noise = Mathf.Lerp(previousHeightMap[size - 1, w], noise, ip);
+      }
+
+      return noise;
     }
   }
 }
