@@ -65,8 +65,14 @@ namespace Assets.ErEntities.ErTerrain
       //
       // Texture
       //
+      var terrainLayer = new TerrainLayer
+      {
+        diffuseTexture = ErTerrainGenerator.Config.RoadMat.mainTexture as Texture2D,
+        //normalMapTexture = ErTerrainGenerator.Config.RoadMat.GetTexture(ErConstants.ErTexture.NormalMapName) as Texture2D
+      };
+      terrainComp.terrainData.terrainLayers = new TerrainLayer[] { terrainLayer };
 
-      texture.Apply();
+      /*texture.Apply();
       var terrainMaterial = new Material(Shader.Find("HDRP/Lit"))
       {
         mainTexture = texture,
@@ -74,7 +80,7 @@ namespace Assets.ErEntities.ErTerrain
         mainTextureScale = new Vector2((float)size / textureSize, (float)size / textureSize),
       };
       terrainMaterial.SetTextureOffset("_MainTex", new Vector2(-10, -10));
-      terrainComp.materialTemplate = terrainMaterial;
+      terrainComp.materialTemplate = terrainMaterial;*/
     }
 
     private static float GetNoiseValue(int w, int h, bool hasPrevious, float[,] previousHeightMap)

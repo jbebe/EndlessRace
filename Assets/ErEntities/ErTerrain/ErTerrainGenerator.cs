@@ -10,6 +10,9 @@ namespace Assets.ErEntities.ErTerrain
     [SerializeField]
     public GameObject Player;
 
+    [SerializeField]
+    public Material RoadMat;
+
     public static ErTerrainConfig Config = new()
     {
       // Basic dimensions
@@ -48,8 +51,8 @@ namespace Assets.ErEntities.ErTerrain
     // Start is called before the first frame update
     void Start()
     {
+      Config.RoadMat = RoadMat;
       Terrains = InitTerrainQueue();
-
     }
 
     // Update is called once per frame

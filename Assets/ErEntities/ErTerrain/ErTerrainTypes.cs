@@ -23,6 +23,8 @@ namespace Assets.ErEntities.ErTerrain
     public int StitchSize;
 
     public int RoadSize;
+
+    public Material RoadMat;
   }
 
   public class ErTerrainTextureConfig

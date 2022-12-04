@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 345.02686, g: 214.96533, b: 137.44653, a: 1}
+  m_IndirectSpecularColor: {r: 331.6089, g: 202.29297, b: 121.802734, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -526,6 +526,10 @@ PrefabInstance:
       propertyPath: Player
       value: 
       objectReference: {fileID: 1687257434}
+    - target: {fileID: 7605755762658484502, guid: a75adc43af00c724e9348f5f53bb181e, type: 3}
+      propertyPath: RoadMat
+      value: 
+      objectReference: {fileID: 2100000, guid: 4d4cfd8617fefa741808e337a1d01786, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a75adc43af00c724e9348f5f53bb181e, type: 3}
 --- !u!1 &1971659101 stripped
